@@ -1,0 +1,6 @@
+framework module Pods_Corona_Virus_Statistics {
+  umbrella header "Pods-Corona Virus Statistics-umbrella.h"
+
+  export *
+  module * { export * }
+}
