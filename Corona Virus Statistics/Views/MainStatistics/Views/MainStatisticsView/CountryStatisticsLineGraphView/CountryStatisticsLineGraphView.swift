@@ -10,46 +10,30 @@ import SwiftUI
 
 struct CountryStatisticsLineGraphView: View {
     @EnvironmentObject var viewModel: CountryChoiceViewModel
+    @State var on = false
     
     var body: some View {
-        GeometryReader { reader in
-            ForEach(self.viewModel.virusDailyCountryStatistics, id: \.self) { statistics in
-                Path { p in
-                    let daySectionWidth = self.daySectionWidth(reader.size.width, count: self.viewModel.virusDailyCountryStatistics.count)
-                    let caseSectionHeight = self.caseSectionHeight(reader.size.height, count: self.viewModel.virusDailyCountryStatistics.count)
-                    
-                    let dayOffset = self.dayOffset(statistics, dayWidth: daySectionWidth)
-                    let caseOffset = self.caseOffset(statistics, caseHeight: caseSectionHeight)
-                    
-                    p.addLine(to: CGPoint(x: dayOffset, y: reader.size.height - caseOffset))
-                    p.move(to: CGPoint(x: dayOffset, y: reader.size.height - caseOffset))
-                    
-                }.stroke()
+        VStack {
+            CountryStatisticsLineGraphShape(viewModel: viewModel)
+                .trim(to: on ? 1 : 0)
+                .stroke(LinearGradient(gradient: Gradient(colors: ColorStorage.brandGradientColors), startPoint: .leading, endPoint: .trailing), lineWidth: 3)
+                //.aspectRatio(16/9, contentMode: .fit)
+                .border(Color.white, width: 3)
+                .padding()
+            
+            //            Button("Animate") {
+            //                withAnimation(.easeInOut(duration: 2)) {
+            //                    self.on.toggle()
+            //                }
+            //            }
+        }.onAppear(perform: {
+            DispatchQueue.main.async {
+                withAnimation(.easeInOut(duration: 2)) {
+                    self.on.toggle()
+                }
             }
-        }
+            
+        })
     }
-    
-    func caseSectionHeight(_ height: CGFloat, count: Int) -> CGFloat {
-        return height / CGFloat(count)
-    }
-    
-    func daySectionWidth(_ height: CGFloat, count: Int) -> CGFloat {
-        return height / CGFloat(count)
-    }
-    
-    func caseOffset(_ object: VirusCountryStatisticsConfirmedCasesSpecificDay, caseHeight: CGFloat) -> CGFloat {
-        CGFloat(viewModel.virusDailyCountryStatistics.firstIndex(of: object)!) * caseHeight
-    }
-    
-    func dayOffset(_ object: VirusCountryStatisticsConfirmedCasesSpecificDay, dayWidth: CGFloat) -> CGFloat {
-        CGFloat(viewModel.virusDailyCountryStatistics.firstIndex(of: object)!) * dayWidth
-    }
-    
-    
 }
 
-struct CountryStatisticsLineGraphView_Previews: PreviewProvider {
-    static var previews: some View {
-        CountryStatisticsLineGraphView()
-    }
-}
