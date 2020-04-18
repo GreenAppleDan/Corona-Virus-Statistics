@@ -217,9 +217,9 @@
 		142ADE512440CFB300796203 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				22AD8F66244B2F1300AF282A /* VirusCountryStatistics */,
 				142ADE522440CFE100796203 /* Country.swift */,
 				142ADE632440DACF00796203 /* VirusWorldwideStatistics.swift */,
-				143A93C32442166D0002DC85 /* VirusCountryStatistics.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -298,6 +298,14 @@
 				143A93C6244218FA0002DC85 /* CountryStatisticsView.swift */,
 			);
 			path = CountryStatisticsView;
+			sourceTree = "<group>";
+		};
+		22AD8F66244B2F1300AF282A /* VirusCountryStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				143A93C32442166D0002DC85 /* VirusCountryStatistics.swift */,
+			);
+			path = VirusCountryStatistics;
 			sourceTree = "<group>";
 		};
 		C4272D0AF39F0F842EDFFA0E /* Pods */ = {

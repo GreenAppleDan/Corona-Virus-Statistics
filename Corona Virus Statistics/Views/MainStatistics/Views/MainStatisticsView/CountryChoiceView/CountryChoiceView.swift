@@ -21,8 +21,7 @@ struct CountryChoiceView: View {
                     guard !viewModel.searchText.isEmpty else { return true }
                     return $0.name.contains(viewModel.searchText)}, id: \.name){ country in
                         Button(action: {
-                            self.viewModel.fetchLatestStatisticsFor(countryName: country.slug)
-                            self.viewModel.chosenCountryName = country.name
+                            self.viewModel.chosenCountry = country
                             self.presentCountryStatistics = true
                         }) {
                             CountryChoiceListView(text: country.name)

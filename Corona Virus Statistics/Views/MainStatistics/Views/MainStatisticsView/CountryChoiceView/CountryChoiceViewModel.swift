@@ -11,7 +11,7 @@ import Foundation
 
 public final class CountryChoiceViewModel: ObservableObject {
     @Published public var searchText: String = ""
-    @Published public var chosenCountryName = ""
+    @Published public var chosenCountry: Country = Country(countryName: "mock", countrySlug: "mock")
     @Published public var virusCountryStatistics: VirusCountryStatistics = VirusCountryStatistics()
     
     private let specificCountryStatisticsService: SpecificCountryStatisticsService
@@ -23,7 +23,7 @@ public final class CountryChoiceViewModel: ObservableObject {
     public init (specificCountryStatisticsService: SpecificCountryStatisticsService = SpecificCountryStatisticsService()) {
         self.specificCountryStatisticsService = specificCountryStatisticsService
     }
-    public func fetchLatestStatisticsFor(countryName: String) {
+    public func fetchLatestStatisticsFor(countryName: String, closure: @escaping () -> Void) {
         specificCountryStatisticsService.publisher(countryName: countryName)
             .retry(3)
             .receive(on: DispatchQueue.main)
@@ -36,6 +36,7 @@ public final class CountryChoiceViewModel: ObservableObject {
                     throw URLError(.cannotDecodeRawData)
                 }
         }.replaceError(with: VirusCountryStatistics())
+            .handleEvents(receiveCompletion: {_ in closure()})
             .assign(to: \.virusCountryStatistics, on: self)
             .store(in: &subscriptions)
         

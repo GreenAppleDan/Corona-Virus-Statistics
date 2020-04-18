@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public struct Country: Codable {
     public let Country: String
@@ -18,5 +19,10 @@ public struct Country: Codable {
     }
     public var slug: String {
         self.Slug
+    }
+    
+    public init(countryName: String, countrySlug: String) {
+        self.Country = countryName
+        self.Slug = countrySlug
     }
 }

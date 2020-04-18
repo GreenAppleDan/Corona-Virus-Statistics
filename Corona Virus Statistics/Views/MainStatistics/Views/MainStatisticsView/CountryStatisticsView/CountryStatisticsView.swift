@@ -17,8 +17,8 @@ struct CountryStatisticsView: View {
             
             Spacer()
             
-            Text("Statistics for \(viewModel.chosenCountryName)")
-                .frame( alignment: .leading)
+            Text("Statistics for \(viewModel.chosenCountry.name)")
+                .frame( alignment: .center)
                 .font(.system(size: 33, weight: .semibold, design: .default))
             
             Spacer()
@@ -40,28 +40,32 @@ struct CountryStatisticsView: View {
                 .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
             
             Spacer()
-        }
+        }.onAppear(perform: {
+            self.viewModel.fetchLatestStatisticsFor(countryName: self.viewModel.chosenCountry.name) {
+                if let confirmed = self.viewModel.virusCountryStatistics.Confirmed, let totalDeaths = self.viewModel.virusCountryStatistics.Deaths, let totalRecovered = self.viewModel.virusCountryStatistics.Recovered {
+                    self.totalConfirmedCases = String(confirmed)
+                    self.totalDeaths = String(totalDeaths)
+                    self.totalRecovered = String(totalRecovered)
+                    self.currentlyIll = String(confirmed - totalDeaths - totalRecovered)
+                } else {
+                    self.totalConfirmedCases = "N/A"
+                    self.totalDeaths = "N/A"
+                    self.totalRecovered = "N/A"
+                    self.currentlyIll = "N/A"
+                }
+                
+            }
+            
+        })
         
     }
-    var totalConfirmedCases: String {
-        guard let totalConfirmed = viewModel.virusCountryStatistics.Confirmed else { return "Loading..."}
-        return String(totalConfirmed)
-    }
+    @State private var totalConfirmedCases: String = "Loading..."
     
-    var totalDeaths: String {
-        guard let totalDeaths = viewModel.virusCountryStatistics.Deaths else { return "Loading..."}
-        return String(totalDeaths)
-    }
+    @State private var totalDeaths: String = "Loading..."
     
-    var totalRecovered: String {
-        guard let totalRecovered = viewModel.virusCountryStatistics.Recovered else { return "Loading..."}
-        return String(totalRecovered)
-    }
+    @State private var totalRecovered: String = "Loading..."
     
-    var currentlyIll: String {
-        guard let totalConfirmed = viewModel.virusCountryStatistics.Confirmed, let totalDeaths = viewModel.virusCountryStatistics.Deaths, let totalRecovered = viewModel.virusCountryStatistics.Recovered else { return "Loading..." }
-        return String(totalConfirmed - totalDeaths - totalRecovered)
-    }
+    @State private var currentlyIll: String = "Loading..."
 }
 
 struct CountryStatisticsView_Previews: PreviewProvider {
