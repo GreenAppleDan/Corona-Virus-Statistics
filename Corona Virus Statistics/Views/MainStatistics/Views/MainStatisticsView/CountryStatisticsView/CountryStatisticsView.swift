@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CountryStatisticsView: View {
     @EnvironmentObject var viewModel: CountryChoiceViewModel
-    
+    @State var isGraphPresented: Bool = false
     
     var body: some View {
         VStack {
@@ -20,7 +20,13 @@ struct CountryStatisticsView: View {
             Text("Statistics for \(viewModel.chosenCountry.name)")
                 .frame( alignment: .center)
                 .font(.system(size: 33, weight: .semibold, design: .default))
-            
+            Spacer()
+            Button(action: {
+                self.isGraphPresented = true
+                self.viewModel.fetchAllDailyStatisticsFor(countryName: self.viewModel.chosenCountry.name)
+            }) {
+                Text("show graph")
+            }
             Spacer()
             
             StatisticsTextView(text: "Total confirmed cases: \(totalConfirmedCases)")
@@ -39,10 +45,11 @@ struct CountryStatisticsView: View {
                 .cornerRadius(12)
                 .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
             
+            
             Spacer()
         }.onAppear(perform: {
             self.viewModel.fetchLatestStatisticsFor(countryName: self.viewModel.chosenCountry.name) {
-                if let confirmed = self.viewModel.virusCountryStatistics.Confirmed, let totalDeaths = self.viewModel.virusCountryStatistics.Deaths, let totalRecovered = self.viewModel.virusCountryStatistics.Recovered {
+                if let confirmed = self.viewModel.virusCountryStatisticsLatest.Confirmed, let totalDeaths = self.viewModel.virusCountryStatisticsLatest.Deaths, let totalRecovered = self.viewModel.virusCountryStatisticsLatest.Recovered {
                     self.totalConfirmedCases = String(confirmed)
                     self.totalDeaths = String(totalDeaths)
                     self.totalRecovered = String(totalRecovered)
@@ -56,7 +63,10 @@ struct CountryStatisticsView: View {
                 
             }
             
-        })
+        }).sheet(isPresented: $isGraphPresented) {
+            CountryStatisticsLineGraphView()
+                .environmentObject(self.viewModel)
+        }
         
     }
     @State private var totalConfirmedCases: String = "Loading..."
