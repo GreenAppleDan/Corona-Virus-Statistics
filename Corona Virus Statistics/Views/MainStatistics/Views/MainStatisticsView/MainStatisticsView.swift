@@ -36,7 +36,7 @@ struct MainStatisticsView: View {
                     .modifier(CustomShadow(shadowRadius: 3))
             }.buttonStyle(PlainButtonStyle())
                 .sheet(isPresented: $presentCountrySearchList) {
-                    CountryChoiceView()
+                    CountryChoiceView(countries: self.$viewModel.countries)
                         .environmentObject(self.viewModel)
             }
             

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CountryStatisticsView: View {
-    @EnvironmentObject var viewModel: MainStatisticsViewModel
+    @EnvironmentObject var viewModel: CountryChoiceViewModel
     
     
     var body: some View {

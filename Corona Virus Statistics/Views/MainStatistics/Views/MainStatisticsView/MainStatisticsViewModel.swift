@@ -15,21 +15,18 @@ public final class MainStatisticsViewModel: ObservableObject {
     
     @Published public var countries: [Country] = []
     @Published public var overallStatistics: VirusWorldwideStatistics = VirusWorldwideStatistics()
-    @Published public var virusCountryStatistics: VirusCountryStatistics = VirusCountryStatistics()
     
-    @Published public var searchText: String = ""
-    @Published public var chosenCountryName = ""
+    
     
     private let allCountriesService: AllCountriesService
     private let virusStatisticsService: VirusStatisticsService
-    private let specificCountryStatisticsService: SpecificCountryStatisticsService
+
     
     private var subscriptions = Set<AnyCancellable>()
     
-    public init(allCountriesService: AllCountriesService = AllCountriesService(), virusStatisticsService: VirusStatisticsService = VirusStatisticsService(), specificCountryStatisticsService: SpecificCountryStatisticsService = SpecificCountryStatisticsService()) {
+    public init(allCountriesService: AllCountriesService = AllCountriesService(), virusStatisticsService: VirusStatisticsService = VirusStatisticsService()) {
         self.allCountriesService = allCountriesService
         self.virusStatisticsService = virusStatisticsService
-        self.specificCountryStatisticsService = specificCountryStatisticsService
         fetchAllCountries()
     }
     
@@ -63,23 +60,7 @@ public final class MainStatisticsViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    public func fetchLatestStatisticsFor(countryName: String) {
-        specificCountryStatisticsService.publisher(countryName: countryName)
-        .retry(3)
-            .receive(on: DispatchQueue.main)
-        .replaceError(with: Data())
-        .tryMap { data -> VirusCountryStatistics in
-            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]], let rawStatistics = json.last {
-            guard let statistics = VirusCountryStatistics.deserialize(from: rawStatistics) else { throw URLError(.cannotDecodeRawData)}
-            return statistics
-        } else {
-            throw URLError(.cannotDecodeRawData)
-            }
-        }.replaceError(with: VirusCountryStatistics())
-            .assign(to: \.virusCountryStatistics, on: self)
-            .store(in: &subscriptions)
-        
-    }
+    
     
     
 }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CountryChoiceSearchView: View {
-    @ObservedObject var viewModel: MainStatisticsViewModel
+    @ObservedObject var viewModel: CountryChoiceViewModel
     var body: some View {
         HStack {
             TextField("Enter Country", text: $viewModel.searchText)
@@ -23,7 +23,7 @@ struct CountryChoiceSearchView: View {
 
 struct CountryChoiceSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryChoiceSearchView(viewModel: MainStatisticsViewModel())
+        CountryChoiceSearchView(viewModel: CountryChoiceViewModel())
             .previewLayout(.sizeThatFits)
     }
 }

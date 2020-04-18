@@ -7,19 +7,20 @@
 //
 
 import SwiftUI
-
+import Combine
 struct CountryChoiceView: View {
-    @EnvironmentObject var viewModel: MainStatisticsViewModel
+    @Binding var countries: [Country]
     @State private var presentCountryStatistics: Bool = false
+    @ObservedObject private var viewModel = CountryChoiceViewModel()
+    
     var body: some View {
         VStack {
             CountryChoiceSearchView(viewModel: viewModel)
             List {
-                ForEach(viewModel.countries.filter{
+                ForEach(countries.sorted(by: { $0.name < $1.name }).filter{
                     guard !viewModel.searchText.isEmpty else { return true }
                     return $0.name.contains(viewModel.searchText)}, id: \.name){ country in
                         Button(action: {
-                            self.viewModel.virusCountryStatistics = VirusCountryStatistics()
                             self.viewModel.fetchLatestStatisticsFor(countryName: country.slug)
                             self.viewModel.chosenCountryName = country.name
                             self.presentCountryStatistics = true
@@ -35,8 +36,3 @@ struct CountryChoiceView: View {
     }
 }
 
-struct CountryChoiceView_Previews: PreviewProvider {
-    static var previews: some View {
-        CountryChoiceView()
-    }
-}
