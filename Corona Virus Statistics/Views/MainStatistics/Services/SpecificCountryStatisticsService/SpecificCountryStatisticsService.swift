@@ -10,7 +10,10 @@ import Foundation
 import Combine
 
 public struct SpecificCountryStatisticsService {
-    func formatCountryName(_ name: String) -> String {
+    private func createUrlFromCountryName(_ name: String) -> URL {
+        URL(string: ("https://api.covid19api.com/live/country/\(formatCountryName(name))/status/confirmed").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
+    private func formatCountryName(_ name: String) -> String {
         return name
             .trimmingCharacters(in: .whitespaces)
             .replacingOccurrences(of: " ", with: "-")
@@ -22,7 +25,7 @@ public struct SpecificCountryStatisticsService {
 extension SpecificCountryStatisticsService: SpecificCountryStatisticsServiceDataPublisher {
     public func publisher(countryName: String) -> AnyPublisher<Data, URLError> {
         URLSession.shared
-            .dataTaskPublisher(for: URL(string: "https://api.covid19api.com/live/country/\(formatCountryName(countryName))/status/confirmed")!)
+            .dataTaskPublisher(for: createUrlFromCountryName(countryName))
             .map(\.data)
             .eraseToAnyPublisher()
     }

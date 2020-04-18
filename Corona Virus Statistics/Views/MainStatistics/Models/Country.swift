@@ -9,5 +9,14 @@
 import Foundation
 
 public struct Country: Codable {
-    public let name: String
+    public let Country: String
+    public let Slug: String
+    
+    
+    public var name: String {
+        self.Country
+    }
+    public var slug: String {
+        self.Slug
+    }
 }

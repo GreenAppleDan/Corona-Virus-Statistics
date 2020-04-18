@@ -21,7 +21,7 @@ struct CountryChoiceView: View {
                     return $0.name.contains(viewModel.searchText)}, id: \.name){ country in
                         Button(action: {
                             self.viewModel.virusCountryStatistics = VirusCountryStatistics()
-                            self.viewModel.fetchLatestStatisticsFor(countryName: country.name)
+                            self.viewModel.fetchLatestStatisticsFor(countryName: country.slug)
                             self.viewModel.chosenCountryName = country.name
                             self.amIShown = false
                             self.presentCountryStatistics = true

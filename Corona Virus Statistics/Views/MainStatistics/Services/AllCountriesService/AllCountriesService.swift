@@ -11,7 +11,7 @@ import Combine
 
 public struct AllCountriesService {
     private var url: URL? {
-        guard let url = URL(string: "https://restcountries.eu/rest/v2/all") else { return nil }
+        guard let url = URL(string: "https://api.covid19api.com/countries") else { return nil }
         return url
     }
     
