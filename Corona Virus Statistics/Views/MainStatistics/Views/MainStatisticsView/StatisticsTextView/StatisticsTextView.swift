@@ -16,7 +16,7 @@ struct StatisticsTextView: View {
             .font(.system(size: 20, weight: .semibold, design: .default))
             .minimumScaleFactor(0.7)
             .frame(width: UIScreen.main.bounds.width * 0.9, alignment: .leading)
-            .background(LinearGradient(gradient: Gradient(colors: [Color(red: 200/255, green: 43/255, blue: 254/255), Color(red: 54/255, green: 115/255, blue: 254/255)]), startPoint: .leading, endPoint: .trailing))
+            .modifier(BrandGradient())
         }
             
     }

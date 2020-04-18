@@ -19,8 +19,8 @@ struct MainStatisticsView: View {
                 self.viewModel.fetchOverallVirusCases()
                 self.presentOverallCases = true
             }) {
-                StatisticsChoiceView(text: "Worldwide statistics", leftImageName: "corona", rightImageName: "corona", leftImageColorMultiply: .white, rightImageColorMultiply: .green, animationType: .rotation)
-                    .background(RoundedCornersView(color: Color(red: 173/255 , green: 230/255, blue: 230/255, opacity: 0.7), tl: 0, tr: 60, bl: 20, br: 0))
+                StatisticsChoiceView(text: "Worldwide statistics", leftImageName: "corona", rightImageName: "corona", leftImageColorMultiply: .green, rightImageColorMultiply: .orange, animationType: .rotation)
+                    .background(RoundedCornersView(colors: ColorStorage.brandGradientColors, tl: 0, tr: 60, bl: 20, br: 0))
                     .modifier(CustomShadow(shadowRadius: 3))
             }.buttonStyle(PlainButtonStyle())
                 .sheet(isPresented: $presentOverallCases) {
@@ -32,7 +32,7 @@ struct MainStatisticsView: View {
                 self.presentCountrySearchList = true
             }) {
                 StatisticsChoiceView(text: "Specific country statistics", leftImageName: "planet1", rightImageName: "planet2", leftImageColorMultiply: .white, rightImageColorMultiply: .white, animationType: .fadingToAnotherImage)
-                    .background(RoundedCornersView(color: Color(red: 173/255 , green: 230/255, blue: 230/255, opacity: 0.7), tl: 60, tr: 0, bl: 0, br: 20))
+                    .background(RoundedCornersView(colors: ColorStorage.brandGradientColors, tl: 60, tr: 0, bl: 0, br: 20))
                     .modifier(CustomShadow(shadowRadius: 3))
             }.buttonStyle(PlainButtonStyle())
                 .sheet(isPresented: $presentCountrySearchList) {
