@@ -36,21 +36,17 @@ struct MainStatisticsView: View {
                     .modifier(CustomShadow(shadowRadius: 3))
             }.buttonStyle(PlainButtonStyle())
                 .sheet(isPresented: $presentCountrySearchList) {
-                    CountryChoiceView(amIShown: self.$presentCountrySearchList, presentCountryStatistics: self.$presentCountryStatistics)
+                    CountryChoiceView()
                         .environmentObject(self.viewModel)
             }
             
-            Spacer().sheet(isPresented: $presentCountryStatistics) {
-                CountryStatisticsView()
-                    .environmentObject(self.viewModel)
-            }
+            Spacer()
         }
     }
     
     @ObservedObject private var viewModel = MainStatisticsViewModel()
     @State private var presentOverallCases: Bool = false
     @State private var presentCountrySearchList: Bool = false
-    @State private var presentCountryStatistics: Bool = false
     
 }
 

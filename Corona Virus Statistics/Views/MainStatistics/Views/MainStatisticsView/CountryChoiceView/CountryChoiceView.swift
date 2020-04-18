@@ -10,8 +10,7 @@ import SwiftUI
 
 struct CountryChoiceView: View {
     @EnvironmentObject var viewModel: MainStatisticsViewModel
-    @Binding var amIShown: Bool
-    @Binding var presentCountryStatistics: Bool
+    @State private var presentCountryStatistics: Bool = false
     var body: some View {
         VStack {
             CountryChoiceSearchView(viewModel: viewModel)
@@ -23,12 +22,14 @@ struct CountryChoiceView: View {
                             self.viewModel.virusCountryStatistics = VirusCountryStatistics()
                             self.viewModel.fetchLatestStatisticsFor(countryName: country.slug)
                             self.viewModel.chosenCountryName = country.name
-                            self.amIShown = false
                             self.presentCountryStatistics = true
                         }) {
                             CountryChoiceListView(text: country.name)
                         }
                 }
+            }.sheet(isPresented: $presentCountryStatistics) {
+                CountryStatisticsView()
+                    .environmentObject(self.viewModel)
             }
         }
     }
@@ -36,6 +37,6 @@ struct CountryChoiceView: View {
 
 struct CountryChoiceView_Previews: PreviewProvider {
     static var previews: some View {
-        CountryChoiceView(amIShown: .constant(true), presentCountryStatistics: .constant(true))
+        CountryChoiceView()
     }
 }
