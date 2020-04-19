@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CountryStatisticsLineGraphView: View {
     @EnvironmentObject var viewModel: CountryChoiceViewModel
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
@@ -36,7 +37,7 @@ struct CountryStatisticsLineGraphView: View {
                         .font(.system(size: 8, design: .default))
                     }
                     CountryStatisticsLineGraphShape()
-                        .border(Color.white, width: 3)
+                        .border(colorScheme == .dark ? Color.white : Color.black, width: 3)
                         .padding(EdgeInsets(top: 0, leading: -15, bottom: 0, trailing: -15))
                         .environmentObject(viewModel)
                     
