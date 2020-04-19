@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "ABADE526-A89D-466F-9F77-92B23C867048"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4FEB696C-3756-424D-92D5-3410881641E9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Corona Virus Statistics/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "scene(_:willConnectTo:options:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D36631A2-AEFF-49C1-ABC9-358B23091DDC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Corona Virus Statistics/Views/MainStatistics/Views/MainStatisticsView/CountryStatisticsLineGraphView/CountryStatisticsLineGraphView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36">
+            <Locations>
+               <Location
+                  uuid = "D36631A2-AEFF-49C1-ABC9-358B23091DDC - cc6f6b942ff7b1e1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Corona_Virus_Statistics.CountryStatisticsLineGraphView.caseOffset(_: Corona_Virus_Statistics.VirusCountryStatisticsConfirmedCasesSpecificDay, height: CoreGraphics.CGFloat) -&gt; CoreGraphics.CGFloat"
+                  moduleName = "Corona Virus Statistics"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denis.zhukoborskiy/Desktop/CoronaVirusStatistics/Corona%20Virus%20Statistics/Views/MainStatistics/Views/MainStatisticsView/CountryStatisticsLineGraphView/CountryStatisticsLineGraphView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "D36631A2-AEFF-49C1-ABC9-358B23091DDC - 7db7f6842218b681"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Corona_Virus_Statistics.VirusCountryStatisticsConfirmedCasesSpecificDay) -&gt; Swift.Optional&lt;Swift.Int&gt; in Corona_Virus_Statistics.CountryStatisticsLineGraphView.caseOffset(_: Corona_Virus_Statistics.VirusCountryStatisticsConfirmedCasesSpecificDay, height: CoreGraphics.CGFloat) -&gt; CoreGraphics.CGFloat"
+                  moduleName = "Corona Virus Statistics"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/denis.zhukoborskiy/Desktop/CoronaVirusStatistics/Corona%20Virus%20Statistics/Views/MainStatistics/Views/MainStatisticsView/CountryStatisticsLineGraphView/CountryStatisticsLineGraphView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

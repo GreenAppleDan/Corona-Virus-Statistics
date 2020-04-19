@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in closure #1 in CountryStatisticsLineGraphShape.body.getter:CountryStatisticsLineGraphShape.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.viewModel.getIndicesOfThreeMiddleDaysForCountryStatistics()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CountryStatisticsView.totalConfirmedCases.getter:CountryStatisticsView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.virusCountryStatistics.Confirmed">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CountryStatisticsLineGraphShape.path(in:):CountryStatisticsLineGraphShape.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "point(at: idx)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "VirusCountryStatisticsConfirmedCasesSpecificDay.mapping(mapper:):VirusCountryStatisticsConfirmedCasesSpecificDay.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "CustomDateFormatTransform(formatString: &quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss&apos;Z&apos;&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CountryStatisticsLineGraphView.body.getter:CountryStatisticsLineGraphView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in CountryStatisticsLineGraphView.body.getter:CountryStatisticsLineGraphView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.virusDailyCountryStatistics.compactMap{$0.Cases}.max()">
+            </PersistentString>
+            <PersistentString
+               value = "CGFloat(object.Cases! / (viewModel.virusDailyCountryStatistics.compactMap{$0.Cases}.max() ?? 1))">
+            </PersistentString>
+            <PersistentString
+               value = "statistics.Cases">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CountryStatisticsLineGraphView.dayOffset(_:dayWidth:):CountryStatisticsLineGraphView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.virusDailyCountryStatistics.firstIndex(of: object)">
+            </PersistentString>
+            <PersistentString
+               value = "CGFloat(viewModel.virusDailyCountryStatistics.firstIndex(of: object)!) * dayWidth">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CountryStatisticsLineGraphView.caseOffset(_:height:):CountryStatisticsLineGraphView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "object.Cases!">
+            </PersistentString>
+            <PersistentString
+               value = "(viewModel.virusDailyCountryStatistics.compactMap{$0.Cases}.max() ?? 1)">
+            </PersistentString>
+            <PersistentString
+               value = "CGFloat(object.Cases! / (viewModel.virusDailyCountryStatistics.compactMap{$0.Cases}.max() ?? 1)) * height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "point #1 (at:) in CountryStatisticsLineGraphShape.path(in:):CountryStatisticsLineGraphShape.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sortedStatistics().last?.Cases">
+            </PersistentString>
+            <PersistentString
+               value = "(point.Cases ?? 1) / (sortedStatistics().last?.Cases ?? 1)">
+            </PersistentString>
+            <PersistentString
+               value = "sortedStatistics()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "getYPointFromStatistics #1 (_:) in CountryStatisticsLineGraphShape.path(in:):CountryStatisticsLineGraphShape.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(sortedStatistics().last?.Cases ?? 1)">
+            </PersistentString>
+            <PersistentString
+               value = "(statistics.Cases ?? 1)">
+            </PersistentString>
+            <PersistentString
+               value = "CGFLOAT(2/32008)">
+            </PersistentString>
+            <PersistentString
+               value = "CGFloat((statistics.Cases ?? 1) / (sortedStatistics().last?.Cases ?? 1))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
