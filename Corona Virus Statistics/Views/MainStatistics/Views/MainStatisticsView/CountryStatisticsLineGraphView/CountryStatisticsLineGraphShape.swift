@@ -21,7 +21,7 @@ struct CountryStatisticsLineGraphShape: View {
                             Text(self.sortedStatistics()[idx].date!.getFormattedBasicString() ?? "")
                                 .foregroundColor(ColorStorage.brightOrange)
                                 .rotationEffect(.degrees(-90))
-                                .font(.system(size: 8, design: .default))
+                                .font(.system(size: 10, design: .default))
                                 .offset(x: self.point(at: idx, rect: reader).x - reader.size.width/2 - 5, y: reader.size.height/2 - self.getHeightFromBottomForDatesText(index: idx, rect: reader))
                             
                             Path { p in

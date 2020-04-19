@@ -34,7 +34,7 @@ struct CountryStatisticsLineGraphView: View {
                         Text(viewModel.virusDailyCountryStatistics.first?.date?.getFormattedBasicString() ?? "")
                         .foregroundColor(ColorStorage.brightOrange)
                         .rotationEffect(.degrees(-90))
-                        .font(.system(size: 8, design: .default))
+                        .font(.system(size: 10, design: .default))
                     }
                     CountryStatisticsLineGraphShape()
                         .border(colorScheme == .dark ? Color.white : Color.black, width: 3)

@@ -12,11 +12,11 @@ import Combine
 struct MainStatisticsView: View {
     var body: some View {
         VStack(spacing: 25) {
-            Spacer()
             Text("COVID-19 Statistics")
                 .font(.system(size: 33, weight: .semibold, design: .default))
                 .minimumScaleFactor(0.7)
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 35, trailing: 40))
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 40))
+            Spacer()
             Button(action: {
                 self.viewModel.fetchOverallVirusCases()
                 self.presentOverallCases = true
@@ -53,7 +53,7 @@ struct MainStatisticsView: View {
                     Text("Icons8")
                 }
                 
-            }
+            }.padding()
         }
     }
     
