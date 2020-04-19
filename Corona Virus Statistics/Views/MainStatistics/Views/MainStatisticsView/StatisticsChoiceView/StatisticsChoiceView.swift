@@ -16,9 +16,10 @@ struct StatisticsChoiceView: View {
             Spacer()
             Text(text)
                 .font(.system(size: 33))
+                .minimumScaleFactor(0.5)
                 .lineLimit(1)
                 .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
-                .minimumScaleFactor(0.7)
+                
             Spacer()
             HStack( spacing: 40){
                 Image(leftImageName)

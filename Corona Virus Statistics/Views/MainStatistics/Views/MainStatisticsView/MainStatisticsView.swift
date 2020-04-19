@@ -12,9 +12,11 @@ import Combine
 struct MainStatisticsView: View {
     var body: some View {
         VStack(spacing: 25) {
+            Spacer()
             Text("COVID-19 Statistics")
                 .font(.system(size: 33, weight: .semibold, design: .default))
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 60, trailing: 40))
+                .minimumScaleFactor(0.7)
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 35, trailing: 40))
             Button(action: {
                 self.viewModel.fetchOverallVirusCases()
                 self.presentOverallCases = true
