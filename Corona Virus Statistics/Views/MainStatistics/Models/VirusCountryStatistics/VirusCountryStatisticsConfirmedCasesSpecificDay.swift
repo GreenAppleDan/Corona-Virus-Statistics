@@ -23,7 +23,6 @@ public class VirusCountryStatisticsConfirmedCasesSpecificDay: HandyJSON {
                 dateFormatter.timeZone = TimeZone(identifier: "UTC")
                 dateFormatter.locale = Locale(identifier: "en_US_POSIX")
                 let dateFinal = dateFormatter.date(from: result)
-                print(dateFinal)
                 return dateFinal
                 
             }, toJSON: { _ in return nil }))
@@ -32,7 +31,11 @@ public class VirusCountryStatisticsConfirmedCasesSpecificDay: HandyJSON {
     required public init() {}
 }
 
-extension VirusCountryStatisticsConfirmedCasesSpecificDay: Hashable, Equatable {
+extension VirusCountryStatisticsConfirmedCasesSpecificDay: Hashable, Equatable, Comparable {
+    public static func < (lhs: VirusCountryStatisticsConfirmedCasesSpecificDay, rhs: VirusCountryStatisticsConfirmedCasesSpecificDay) -> Bool {
+        return lhs.Cases! < rhs.Cases!
+    }
+    
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(Country)

@@ -66,4 +66,21 @@ public final class CountryChoiceViewModel: ObservableObject {
             .assign(to: \.virusDailyCountryStatistics, on: self)
             .store(in: &subscriptions)
     }
+    
+    public func getIndicesOfThreeMiddleDaysForCountryStatistics() -> [Int] {
+        guard virusDailyCountryStatistics.count > 30 else { return []}
+        var indices = [Int]()
+        guard let maxCasesValue = virusDailyCountryStatistics.max()?.Cases else { return []}
+        guard maxCasesValue > 100 else { return []}
+        var objectsToFindClosestOnes = [maxCasesValue/20 * 1, maxCasesValue/20 * 4, maxCasesValue/20 * 10]
+        
+        
+        for index in 0...2  {
+            let closest = virusDailyCountryStatistics.enumerated().min(by: { abs($0.1.Cases! - objectsToFindClosestOnes[index]) < abs($1.1.Cases! - objectsToFindClosestOnes[index])})
+            indices.append(closest!.offset)
+        }
+        
+        return indices
+        
+    }
 }

@@ -8,45 +8,108 @@
 
 import SwiftUI
 
-struct CountryStatisticsLineGraphShape: Shape {
+struct CountryStatisticsLineGraphShape: View {
     @ObservedObject var viewModel: CountryChoiceViewModel
-    
-    func path(in rect: CGRect) -> Path {
-        func getYPointFromStatistics(_ statistics: VirusCountryStatisticsConfirmedCasesSpecificDay) -> CGFloat {
-            return rect.height - rect.height * CGFloat(Double(statistics.Cases ?? 1) / Double(sortedStatistics().last?.Cases ?? 1))
-        }
-        
-        func point(at index: Int) -> CGPoint {
-            let point = sortedStatistics()[index]
-            let x = rect.width * CGFloat(index) / CGFloat(sortedStatistics().count - 1)
-            let y = getYPointFromStatistics(point)
-            return CGPoint(x: x, y: y)
-        }
-        
-        return Path { p in
-            guard sortedStatistics().count > 1 else { return }
-            //let start = sortedStatistics()[0]
-            p.move(to: CGPoint(x: 0, y: rect.height))
-            
-            for idx in sortedStatistics().indices {
-                print(point(at: idx))
-                p.addLine(to: point(at: idx))
+    var body: some View {
+        GeometryReader { reader in
+            ZStack {
+                
+                ForEach(self.sortedStatistics().indices) { idx in
+                    Group {
+                        if (self.viewModel.getIndicesOfThreeMiddleDaysForCountryStatistics()).contains(idx)  {
+                            
+                            Text(self.sortedStatistics()[idx].date!.getFormattedBasicString() ?? "")
+                                .rotationEffect(.degrees(-90))
+                                .font(.system(size: 8, design: .default))
+                                .offset(x: self.point(at: idx, rect: reader).x - reader.size.width/2 - 5, y: reader.size.height/2 - 30)
+                            
+                            Path { p in
+                                p.move(to: CGPoint(x: self.point(at: idx, rect: reader).x, y: reader.size.height))
+                                p.addLine(to: CGPoint(x: self.point(at: idx, rect: reader).x, y: 0))
+                                p.move(to: CGPoint(x: reader.size.width, y: self.point(at: idx, rect: reader).y))
+                                p.addLine(to: CGPoint(x: 0, y: self.point(at: idx, rect: reader).y))
+                                
+                            }.stroke(lineWidth: 1)
+                            
+                            //sortedStatistics()[idx].date
+                            Text(String(self.sortedStatistics()[idx].Cases!))
+                                .offset(x: 40 - reader.size.width/2, y: self.point(at: idx, rect: reader).y - reader.size.height/2 - 15)
+                            
+                            
+                        }
+                    }
+                }
+                //                ForEach(self.sortedStatistics().indices) { idx in
+                //                    if idx % 7 == 0 && idx != 0 {
+                //                        Group {
+                //                            Path { p in
+                //                                p.move(to: CGPoint(x: self.point(at: idx, rect: reader).x, y: reader.size.height))
+                //                                p.addLine(to: CGPoint(x: self.point(at: idx, rect: reader).x, y: 0))
+                //                                //                            p.move(to: CGPoint(x: reader.size.width, y: self.point(at: idx, rect: reader).y))
+                //                                //                            p.addLine(to: CGPoint(x: 0, y: self.point(at: idx, rect: reader).y))
+                //
+                //                            }.stroke(lineWidth: 1)
+                //
+                //                            //sortedStatistics()[idx].date
+                //                            //Text("abc")
+                //                            // .offset(x: 5, y: self.point(at: idx, rect: reader).y)
+                //                        }
+                //                    }
+                //                }
+                
+                Path { p in
+                    guard self.sortedStatistics().count > 1 else { return }
+                    //let start = sortedStatistics()[0]
+                    p.move(to: CGPoint(x: 0, y: reader.size.height))
+                    
+                    for idx in self.sortedStatistics().indices {
+                        print(self.point(at: idx, rect: reader))
+                        p.addLine(to: self.point(at: idx, rect: reader))
+                    }
+                    
+                }.stroke(LinearGradient(gradient: Gradient(colors: ColorStorage.brandGradientColors), startPoint: .leading, endPoint: .trailing), lineWidth: 4)
+                
             }
         }
     }
     
+    func getYPointFromStatistics(_ statistics: VirusCountryStatisticsConfirmedCasesSpecificDay, rect: GeometryProxy) -> CGFloat {
+        return rect.size.height - rect.size.height * CGFloat(Double(statistics.Cases ?? 1) / Double(sortedStatistics().last?.Cases ?? 1))
+    }
+    
+    func point(at index: Int, rect: GeometryProxy) -> CGPoint {
+        let point = sortedStatistics()[index]
+        let x = rect.size.width * CGFloat(index) / CGFloat(sortedStatistics().count - 1)
+        let y = getYPointFromStatistics(point, rect: rect)
+        return CGPoint(x: x, y: y)
+    }
+    
+    func getMiddleThreeValues(_ array: [Int]) -> [Int] {
+        guard array.count >= 5 else { return []}
+        var values = [Int]()
+        
+        let count = array.count
+        for element in 1...3 {
+            values.append(array[count] * element)
+        }
+        
+        return values
+    }
+    
+    
+    
     func sortedStatistics() -> [VirusCountryStatisticsConfirmedCasesSpecificDay] {
-        return viewModel.virusDailyCountryStatistics.filter{$0.Cases != 0}.sorted(by: {$0.date ?? Date() < $1.date ?? Date()})
+        return viewModel.virusDailyCountryStatistics.sorted(by: {$0.date ?? Date() < $1.date ?? Date()})
     }
     
     
-    func caseOffset(_ object: VirusCountryStatisticsConfirmedCasesSpecificDay, height: CGFloat) -> CGFloat {
-        CGFloat(Double(object.Cases! / (viewModel.virusDailyCountryStatistics.compactMap{$0.Cases}.max()!)) * Double(height))
-    }
-    
-    func dayOffset(_ object: VirusCountryStatisticsConfirmedCasesSpecificDay, dayWidth: CGFloat) -> CGFloat {
-        CGFloat(viewModel.virusDailyCountryStatistics.firstIndex(of: object)!) * dayWidth
-    }
+    //    func caseOffset(_ object: VirusCountryStatisticsConfirmedCasesSpecificDay, height: CGFloat) -> CGFloat {
+    //        CGFloat(Double(object.Cases! / (viewModel.virusDailyCountryStatistics.compactMap{$0.Cases}.max()!)) * Double(height))
+    //    }
+    //
+    //    func dayOffset(_ object: VirusCountryStatisticsConfirmedCasesSpecificDay, dayWidth: CGFloat) -> CGFloat {
+    //        CGFloat(viewModel.virusDailyCountryStatistics.firstIndex(of: object)!) * dayWidth
+    //    }
     
     
 }
