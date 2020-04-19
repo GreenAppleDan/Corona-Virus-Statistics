@@ -19,9 +19,10 @@ struct CountryStatisticsLineGraphShape: View {
                         if (self.viewModel.getIndicesOfThreeMiddleDaysForCountryStatistics()).contains(idx)  {
                             
                             Text(self.sortedStatistics()[idx].date!.getFormattedBasicString() ?? "")
+                                .foregroundColor(ColorStorage.brightOrange)
                                 .rotationEffect(.degrees(-90))
                                 .font(.system(size: 8, design: .default))
-                                .offset(x: self.point(at: idx, rect: reader).x - reader.size.width/2 - 5, y: reader.size.height/2 - 30)
+                                .offset(x: self.point(at: idx, rect: reader).x - reader.size.width/2 - 5, y: reader.size.height/2 - self.getHeightFromBottomForDatesText(index: idx, rect: reader))
                             
                             Path { p in
                                 p.move(to: CGPoint(x: self.point(at: idx, rect: reader).x, y: reader.size.height))
@@ -29,7 +30,7 @@ struct CountryStatisticsLineGraphShape: View {
                                 p.move(to: CGPoint(x: reader.size.width, y: self.point(at: idx, rect: reader).y))
                                 p.addLine(to: CGPoint(x: 0, y: self.point(at: idx, rect: reader).y))
                                 
-                            }.stroke(lineWidth: 1)
+                            }.stroke(lineWidth: 0.7)
                             
                             //sortedStatistics()[idx].date
                             Text(String(self.sortedStatistics()[idx].Cases!))
@@ -84,16 +85,15 @@ struct CountryStatisticsLineGraphShape: View {
         return CGPoint(x: x, y: y)
     }
     
-    func getMiddleThreeValues(_ array: [Int]) -> [Int] {
-        guard array.count >= 5 else { return []}
-        var values = [Int]()
+    func getHeightFromBottomForDatesText(index: Int, rect: GeometryProxy) -> CGFloat {
+        guard let position = viewModel.getIndicesOfThreeMiddleDaysForCountryStatistics().firstIndex(of: index) else { return 0}
         
-        let count = array.count
-        for element in 1...3 {
-            values.append(array[count] * element)
+        switch position {
+        case 0, 1, 2:
+            return (rect.size.height / 5) * (CGFloat(position) + 1)
+        default:
+            return 0
         }
-        
-        return values
     }
     
     
