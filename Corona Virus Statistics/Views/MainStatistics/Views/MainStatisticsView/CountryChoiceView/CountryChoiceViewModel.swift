@@ -83,4 +83,9 @@ public final class CountryChoiceViewModel: ObservableObject {
         return indices
         
     }
+    
+    public func getMaxCasesDaysForCountryStatistics() -> Int {
+        guard let maxCasesValue = virusDailyCountryStatistics.max()?.Cases else { return 0}
+        return maxCasesValue
+    }
 }

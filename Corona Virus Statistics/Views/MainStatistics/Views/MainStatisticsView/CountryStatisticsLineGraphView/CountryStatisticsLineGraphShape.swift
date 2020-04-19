@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CountryStatisticsLineGraphShape: View {
-    @ObservedObject var viewModel: CountryChoiceViewModel
+    @EnvironmentObject var viewModel: CountryChoiceViewModel
     var body: some View {
         GeometryReader { reader in
             ZStack {
