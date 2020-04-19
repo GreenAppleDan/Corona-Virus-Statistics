@@ -11,7 +11,7 @@ import SwiftUI
 struct CountryStatisticsView: View {
     @EnvironmentObject var viewModel: CountryChoiceViewModel
     @State var isGraphPresented: Bool = false
-    
+    @State private var showingAlert = false
     var body: some View {
         VStack {
             
@@ -22,10 +22,18 @@ struct CountryStatisticsView: View {
                 .font(.system(size: 33, weight: .semibold, design: .default))
             Spacer()
             Button(action: {
-                self.isGraphPresented = true
-                self.viewModel.fetchAllDailyStatisticsFor(countryName: self.viewModel.chosenCountry.name)
+                if  self.viewModel.virusCountryStatisticsLatest.Confirmed != nil {
+                    self.viewModel.fetchAllDailyStatisticsFor(countryName: self.viewModel.chosenCountry.name) {
+                        self.isGraphPresented = true
+                    }
+                } else {
+                    self.showingAlert = true
+                }
             }) {
-                Text("show graph")
+                Text("Show linear graph")
+            }
+            .alert(isPresented: $showingAlert) { () -> Alert in
+                Alert(title: Text("Error"), message: Text("No information available"), dismissButton: .default(Text("Ok")))
             }
             Spacer()
             

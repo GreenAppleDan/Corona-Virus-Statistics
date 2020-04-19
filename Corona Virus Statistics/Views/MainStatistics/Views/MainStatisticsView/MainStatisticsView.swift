@@ -41,6 +41,17 @@ struct MainStatisticsView: View {
             }
             
             Spacer()
+            
+            HStack {
+                Text("Icons provided by")
+                Button(action: {
+                    let url = URL(string: "https://icons8.com")!
+                    UIApplication.shared.open(url)
+                }) {
+                    Text("Icons8")
+                }
+                
+            }
         }
     }
     

@@ -44,7 +44,7 @@ public final class CountryChoiceViewModel: ObservableObject {
         
     }
     
-    public func fetchAllDailyStatisticsFor(countryName: String) {
+    public func fetchAllDailyStatisticsFor(countryName: String, completion: @escaping () -> Void) {
         specificCountryDailyStatisticsService.publisher(countryName: countryName)
             .retry(3)
             .receive(on: DispatchQueue.main)
@@ -63,6 +63,7 @@ public final class CountryChoiceViewModel: ObservableObject {
                     throw URLError(.cannotDecodeRawData)
                 }
         }.replaceError(with: [VirusCountryStatisticsConfirmedCasesSpecificDay()])
+            .handleEvents(receiveCompletion: {_ in completion()})
             .assign(to: \.virusDailyCountryStatistics, on: self)
             .store(in: &subscriptions)
     }
