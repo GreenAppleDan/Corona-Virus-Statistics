@@ -20,6 +20,8 @@ struct CountryStatisticsView: View {
             Text("Statistics for \(viewModel.chosenCountry.name)")
                 .frame( alignment: .center)
                 .font(.system(size: 33, weight: .semibold, design: .default))
+                .minimumScaleFactor(0.5)
+                .padding()
             Spacer()
             Button(action: {
                 if  self.viewModel.virusCountryStatisticsLatest.Confirmed != nil {
@@ -30,7 +32,7 @@ struct CountryStatisticsView: View {
                     self.showingAlert = true
                 }
             }) {
-                Text("Show linear graph")
+                Text("Show Linear Graph Of Confimed Cases")
             }
             .alert(isPresented: $showingAlert) { () -> Alert in
                 Alert(title: Text("Error"), message: Text("No information available"), dismissButton: .default(Text("Ok")))

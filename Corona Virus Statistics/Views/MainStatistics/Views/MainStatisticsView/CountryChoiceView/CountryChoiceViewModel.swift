@@ -31,9 +31,20 @@ public final class CountryChoiceViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .replaceError(with: Data())
             .tryMap { data -> VirusCountryStatisticsLatest in
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]], let rawStatistics = json.last {
-                    guard let statistics = VirusCountryStatisticsLatest.deserialize(from: rawStatistics) else { throw URLError(.cannotDecodeRawData)}
-                    return statistics
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]], !json.isEmpty {
+                    guard let statistics = [VirusCountryStatisticsLatest].deserialize(from: json) else { throw URLError(.cannotDecodeRawData)}
+                    let unwrappedArray =  statistics.compactMap({$0}).reversed()
+                    let lastDateValuesWithUniqueProvince = Set(unwrappedArray)
+                    let accumulatedCases = lastDateValuesWithUniqueProvince.reduce(VirusCountryStatisticsLatest(Active: 0, Recovered: 0, Confirmed: 0, Deaths: 0)) { initial, object in
+                        initial.Confirmed! += object.Confirmed ?? 0
+                        initial.Deaths! += object.Deaths ?? 0
+                        initial.Active! += object.Active ?? 0
+                        initial.Recovered! += object.Recovered ?? 0
+                        return initial
+                    }
+                    
+                    return accumulatedCases
+                    
                 } else {
                     throw URLError(.cannotDecodeRawData)
                 }
@@ -73,7 +84,7 @@ public final class CountryChoiceViewModel: ObservableObject {
         var indices = [Int]()
         guard let maxCasesValue = virusDailyCountryStatistics.max()?.Cases else { return []}
         guard maxCasesValue > 100 else { return []}
-        var objectsToFindClosestOnes = [maxCasesValue/20 * 1, maxCasesValue/20 * 4, maxCasesValue/20 * 10]
+        let objectsToFindClosestOnes = [maxCasesValue/20 * 1, maxCasesValue/20 * 4, maxCasesValue/20 * 10]
         
         
         for index in 0...2  {

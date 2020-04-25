@@ -38,7 +38,7 @@ public final class MainStatisticsViewModel: ObservableObject {
             .decode(type: [Country].self, decoder: Self.decoder)
             .receive(on: DispatchQueue.main)
             .replaceError(with: [])
-            .map {$0.filter { $0.name != "China" && $0.name != "Canada"}}
+            //.map {$0.filter { $0.name != "China" && $0.name != "Canada"}}
             .assign(to: \.countries, on: self)
             .store(in: &subscriptions)
     }

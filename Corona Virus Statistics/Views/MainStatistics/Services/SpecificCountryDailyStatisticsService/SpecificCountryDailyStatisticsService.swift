@@ -11,7 +11,8 @@ import Combine
 
 public struct SpecificCountryDailyStatisticsService {
     private func createUrlFromCountryName(_ name: String) -> URL {
-        URL(string: ("https://api.covid19api.com/country/\(name.formantForURL())/status/confirmed/live").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+        URL(string: ("https://api.covid19api.com/total/dayone/country/\(name.formantForURL())/status/confirmed").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+        
     }
     
     public init() {}

@@ -14,7 +14,7 @@ struct CountryStatisticsLineGraphView: View {
     
     var body: some View {
         VStack {
-            Text("COVID-19 Progression for \(viewModel.chosenCountry.name)")
+            Text("COVID-19 Progression for \(viewModel.chosenCountry.name) (confirmed cases)")
                 .multilineTextAlignment(.center)
                 .font(.system(size: 33, weight: .semibold, design: .default))
                 .padding()
